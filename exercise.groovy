@@ -76,7 +76,7 @@ class Exercise {
         Set givenRequirment = new HashSet()
         givenRequirment.add("birthday")
         givenRequirment.add("newYear")
-     System.out.println(getMessage(list, givenRequirment, 3))
+     System.out.println(getMessage(list5, givenRequirment, 2))
 
 
     }
@@ -124,12 +124,12 @@ class Exercise {
                                 result.add(newList)
                             }
                         }else if(!t.hasProperty("requirement") && !t.hasProperty("matchId") ){
-                            if(matchIdList.contains(matchIds)){
+
                                 String id = t["id"]
                                 HashMap<String, String> newList = new HashMap()
                                 newList.put(id, message)
                                 result.add(newList)
-                            }
+
                         }
                     }else{
                         String id = t["id"]
