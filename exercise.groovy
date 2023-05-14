@@ -76,7 +76,7 @@ class Exercise {
         Set givenRequirment = new HashSet()
         givenRequirment.add("birthday")
         givenRequirment.add("newYear")
-        print(getMessage(list, givenRequirment, 2))
+     System.out.println(getMessage(list, givenRequirment, 3))
 
 
     }
@@ -84,16 +84,17 @@ class Exercise {
     //Object of list
     // 1: hi and birthday
     // if the requirement
-    static HashMap<Long, String> getMessage(List<HashMap<String, String>> lists, Set givenRequirements, matchIds){
+    static List<HashMap<Long, String>> getMessage(List<HashMap<String, String>> lists, Set givenRequirements, matchIds){
         //if value RequirementType is in givenRequirements and matchIds is in  1: text
         //if  value RequirementType is in givenRequirements and matchIds does not exist the key doesnt exist
        //givenRequirement = {"birthday", "anniverary"}
         //matchIds = 1
         Iterator<?> iterateList = lists.iterator()
         List<HashMap<String, String>> result = new ArrayList()
+        print(iterateList)
         if(!lists.isEmpty()){
             if(iterateList.hasNext()){
-                iterateList.each { def t ->  //for(t : iterateList
+               for(t in iterateList){ //for(t : iterateList
                     String message = t["text"]
                     List<String> requirments = t["requirement"]
                     List<String> matchIdList = t["matchId"]
@@ -142,7 +143,7 @@ class Exercise {
             }
         }
 
-
+   return result
 
     }
 
