@@ -2,6 +2,8 @@ package org.example
 
 import org.codehaus.groovy.util.StringUtil
 
+import java.util.stream.Collectors
+
 
 class Exercise {
 
@@ -27,56 +29,57 @@ class Exercise {
 
 
 
+
         //second test case
         ArrayList list2 = new ArrayList()
         HashMap map2 = new HashMap()
-        map2.put("id" , "1")
+        map2.put("id" , "2")
         map2.put("text", "hi and happy mother day")
-        ArrayList requirement2 = new ArrayList()
-        HashMap requirementTypeValues = new HashMap()
-        requirementTypeValues.put("requirementType", "name")
-        requirement2.add(requirementTypeValues)
-        HashMap requirementTypeValue3 = new HashMap()
-        requirementTypeValue3.put("requirementType", "gifts")
-        requirement.add(requirementTypeValue3)
-        map2.put("requirement", requirement)
-        list2.add(map2)
+        ArrayList requirement6 = new ArrayList()
+        HashMap requirementTypeValues3 = new HashMap()
+        requirementTypeValues3.put("requirementType", "name")
+        requirement6.add(requirementTypeValues3)
+        HashMap requirementTypeValue6 = new HashMap()
+        requirementTypeValue6.put("requirementType", "gifts")
+        requirement6.add(requirementTypeValue6)
+        map2.put("requirement", requirement6)
+        list.add(map2)
+
 
         //third test case
         ArrayList list3 = new ArrayList()
         HashMap map3 = new HashMap()
-        map3.put("id" , "1")
+        map3.put("id" , "3")
         map3.put("text", "May the fourth be with you")
         ArrayList matchId3 = new ArrayList()
         matchId3.add(1)
         matchId3.add(2)
         map3.put("matchId", matchId3)
-        list3.add(map3)
+        list.add(map3)
 
 
         //fourth test case
         ArrayList list4 = new ArrayList()
         HashMap map4 = new HashMap()
-        map4.put("id" , "1")
+        map4.put("id" , "4")
         map4.put("text", "Welcome to Summer")
-        list4.add(map4)
+        list.add(map4)
 
         //fourth fifth case
         ArrayList list5 = new ArrayList()
         HashMap map5 = new HashMap()
-        map5.put("id" , "1")
+        map5.put("id" , "5")
         map5.put("text", " ")
-        list5.add(map5)
-
-        println("List1"+  list)
-        println("List2" +  list2)
-        println("List3" +  list3)
-        println("List4" +  list4)
-        println("List5" +  list5)
+        list.add(map5)
+        
         Set givenRequirment = new HashSet()
         givenRequirment.add("birthday")
-        givenRequirment.add("newYear")
-     System.out.println(getMessage(list5, givenRequirment, 2))
+        givenRequirment.add("health")
+        givenRequirment.add("name")
+
+
+
+     System.out.println(getMessage(list, givenRequirment, 2))
 
 
     }
@@ -99,15 +102,17 @@ class Exercise {
                     List<String> requirments = t["requirement"]
                     List<String> matchIdList = t["matchId"]
                     if(!message.isEmpty()){
-                        if(t.hasProperty("requirement")){
+
+                        if(t.containsKey("requirement")){
                             for(Map<String, String> r in requirments){
-                                if(givenRequirements.contains(r.get("requirementType"))  && !t.hasProperty("matchId")){ //first condition // if any value is in the list
+                                if(givenRequirements.contains(r.get("requirementType"))  && !t.containsKey("matchId")){ //first condition // if any value is in the list
                                     String id = t["id"]
                                     HashMap<String, String> newList = new HashMap()
                                     newList.put(id, message)
                                     result.add(newList)
 
-                                }else if(givenRequirements.contains(r.get("requirementType"))  && t.hasProperty("matchId")) {
+                                }else if(givenRequirements.contains(r.get("requirementType"))  && t.containsKey("matchId")) {
+
                                     if(matchIdList.contains(matchIds)){
                                         String id = t["id"]
                                         HashMap<String, String> newList = new HashMap()
@@ -116,14 +121,15 @@ class Exercise {
                                     }
                                 }
                             }
-                        }else if(!t.hasProperty("requirement") && t.hasProperty("matchId")){
+                        }else if(!t.containsKey("requirement") && t.containsKey("matchId")){
                             if(matchIdList.contains(matchIds)){
                                 String id = t["id"]
                                 HashMap<String, String> newList = new HashMap()
                                 newList.put(id, message)
                                 result.add(newList)
                             }
-                        }else if(!t.hasProperty("requirement") && !t.hasProperty("matchId") ){
+                        }else if(!t.containsKey("requirement") && !t.containsKey("matchId") ){
+
 
                                 String id = t["id"]
                                 HashMap<String, String> newList = new HashMap()
@@ -143,7 +149,7 @@ class Exercise {
             }
         }
 
-   return result
+   return result.stream().distinct().collect(Collectors.toList())
 
     }
 
